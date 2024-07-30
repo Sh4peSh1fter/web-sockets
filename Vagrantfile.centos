@@ -63,19 +63,15 @@ Vagrant.configure(CONF_VERSION) do |config|
     # end
 
     # Provisioning Steps
-    config.vm.provision "file", source: "docker-compose.yaml", destination: "/home/vagrant/docker-compose.yaml"
-    config.vm.provision "file", source: "standard-web-app", destination: "/home/vagrant/standard-web-app"
-    config.vm.provision "file", source: "wss-web-app", destination: "/home/vagrant/wss-web-app"
-
     ## initial provision
     ws.vm.provision "initial-provision", type: "shell" do |shell|
-      shell.path = "provision/initial-provision-centos.sh"
+      shell.path = "provision/initial-provision-rhel.sh"
     end
 
-    # ## deploy webapps
-    # ws.vm.provision "deploy-webapps", type: "ansible" do |ansible|
-    #   ansible.playbook = "provision/deploy-webapps-pb.yaml"
-    # end
+    ## deploy webapps
+    ws.vm.provision "deploy-webapps", type: "ansible" do |ansible|
+      ansible.playbook = "provision/deploy-webapps-pb.yaml"
+    end
 
     ## initial restart
     ws.vm.provision "initial-restart", type: "shell" do |shell|
@@ -86,7 +82,7 @@ Vagrant.configure(CONF_VERSION) do |config|
     ws.vm.post_up_message = <<-TEXT
   ##############################################################
 
-      This is a CENTOS-8 VM for testing web sockets apps.		
+      This is a CENTOS-08 VM for testing web sockets apps.		
     
     Have fun :)
             

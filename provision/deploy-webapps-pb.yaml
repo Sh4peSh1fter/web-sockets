@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: copy docker compose and app files
+      copy:
+        src: "{{ item }}"
+        dest: /home/vagrant/
+        owner: vagrant
+        group: vagrant
+      with_fileglob:
+      - "*"
+
+    - name: start docker compose services
+      command: docker compose -f /home/vagrant/docker-compose.yml up -d
+      become: yes
+      become_user: vagrant

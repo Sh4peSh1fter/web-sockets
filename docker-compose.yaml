@@ -1,0 +1,12 @@
+services:
+  app1:
+    build: ./standard-web-app
+    ports:
+      - "3000:3000"
+
+  app2:
+    build: ./wss-web-app
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./certs:/etc/ssl/certs
