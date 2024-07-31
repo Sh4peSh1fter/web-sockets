@@ -5,7 +5,7 @@
 REQUIRED_PLUGINS = ["vagrant-vbguest", "vagrant-disksize"]
 CONF_VERSION = "2"
 BOX_NAME = "generic/centos8"
-VM_NAME = "web-sockets-centos"
+VM_NAME = "websockets-centos"
 USERNAME = "vagrant"
 PASSWORD = "vagrant"
 CPU = "2"
@@ -40,8 +40,10 @@ Vagrant.configure(CONF_VERSION) do |config|
     ws.vm.box_check_update = false
     
     # Network
-    ws.vm.network "forwarded_port", guest: 3000, host: 3000
-    ws.vm.network "forwarded_port", guest: 3001, host: 3001
+    ws.vm.network "forwarded_port", guest: 3000, host: 3000 # http
+    ws.vm.network "forwarded_port", guest: 3001, host: 3001 # https
+    ws.vm.network "forwarded_port", guest: 4000, host: 4000 # websockets
+    ws.vm.network "forwarded_port", guest: 4001, host: 4001 # secure websockets
 
     # VirtualBox provider configuration
     ws.vm.provider "virtualbox" do |vb|
@@ -55,17 +57,20 @@ Vagrant.configure(CONF_VERSION) do |config|
     end
 
     # # Plugins
-    # ws.vagrant.plugins = ["vagrant-vbguest"]#, "vagrant-env"]
+    # ws.vagrant.plugins = ["vagrant-vbguest"]
     # if Vagrant.has_plugin?("vagrant-vbguest")
     #   # ws.vbguest.installer_options = { running_kernel_modules: ["vboxguest"] }
     #   ws.vbguest.auto_update = true
     #   ws.vbguest.installer_options = { allow_kernel_upgrade: true }
     # end
 
-    # Provisioning Steps
-    config.vm.provision "file", source: "docker-compose.yaml", destination: "/home/vagrant/docker-compose.yaml"
-    config.vm.provision "file", source: "standard-web-app", destination: "/home/vagrant/standard-web-app"
-    config.vm.provision "file", source: "wss-web-app", destination: "/home/vagrant/wss-web-app"
+    # ## initial cleanup
+    # ws.vm.provision "cleanup", type: "shell" do |shell|
+    #     shell.inline = "sudo rm -rf /home/vagrant/apps"
+    # end
+
+    # copy apps folder
+    config.vm.provision "file", source: "apps", destination: "/home/vagrant/apps"
 
     ## initial provision
     ws.vm.provision "initial-provision", type: "shell" do |shell|

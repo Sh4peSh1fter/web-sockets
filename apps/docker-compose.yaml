@@ -1,0 +1,29 @@
+services:
+  http-web-app:
+    build: 
+      context: ./http-web-app
+      args:
+        - PORT=3000
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+
+  https-web-app:
+    build: ./https-web-app
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./certs:/etc/ssl/certs
+
+  websockets-web-app:
+    build: ./websockets-web-app
+    ports:
+      - "4000:4000"
+
+  wss-web-app:
+    build: ./wss-web-app
+    ports:
+      - "4001:4001"
+    volumes:
+      - ./certs:/etc/ssl/certs

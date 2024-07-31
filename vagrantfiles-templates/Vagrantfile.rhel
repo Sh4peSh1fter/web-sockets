@@ -4,8 +4,8 @@
 # Variables
 REQUIRED_PLUGINS = ["vagrant-vbguest", "vagrant-disksize"]
 CONF_VERSION = "2"
-BOX_NAME = "generic/centos8"
-VM_NAME = "web-sockets-centos"
+BOX_NAME = "generic/rhel8"
+VM_NAME = "websockets-vm"
 USERNAME = "vagrant"
 PASSWORD = "vagrant"
 CPU = "2"
@@ -82,7 +82,7 @@ Vagrant.configure(CONF_VERSION) do |config|
     ws.vm.post_up_message = <<-TEXT
   ##############################################################
 
-      This is a CENTOS-08 VM for testing web sockets apps.		
+      This is a RHEL-08 VM for testing web sockets apps.		
     
     Have fun :)
             
