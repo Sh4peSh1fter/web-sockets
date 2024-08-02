@@ -113,7 +113,7 @@ vagrant global-status
 ## problems I went through, and some solutions
 1. when trying to install docker on rhel 8, the docker-ce repo is missing some dependencies. 
 the error im getting:
-```
+```bash
 Error:
     websockets-vm:  Problem 1: cannot install the best candidate for the job
     websockets-vm:   - nothing provides libcgroup needed by docker-ce-3:27.1.1-1.el8.x86_64
@@ -132,18 +132,18 @@ solution: moved to centos
 
 solution: 
 to enable it:
-```
+```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 to revert it:
-```
+```powershell
 Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser
 ```
 
 ---
 
 3. after installing ansible in the python venv, running it outputs the following error:
-```
+```bash
 Traceback (most recent call last):
   File "<frozen runpy>", line 198, in _run_module_as_main
   File "<frozen runpy>", line 88, in _run_code
@@ -163,11 +163,26 @@ install wsl
 ---
 
 4. app1:
-```
+```bash
 ImportError: cannot import name 'url_quote' from 'werkzeug.urls' (/usr/local/lib/python3.9/site-packages/werkzeug/urls.py)
 ```
 Flask 3+ isn't compatible with Werkzeug 2. But the latest versions of each are compatible with each other.
 specifiying an earlier version for the Werkzeug module (for example 2.2.0) doesnt work, nor changing the flask version as well.
+
+---
+
+5. vagrant ssh doesnt work. it returns the following error:
+```bash
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic)
+```
+running "set VAGRANT_PREFER_SYSTEM_BIN=0" didnt work.
+
+
+## sources
+1. docker security best practices
+    * https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html
+2. 
+
 
 
 ## notes and todo list

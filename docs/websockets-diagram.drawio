@@ -56,7 +56,7 @@
             <mxPoint x="360" y="280" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="5NbOVXX6M8sHhtHBRRVc-12" value="virtual Nic" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="5NbOVXX6M8sHhtHBRRVc-12" value="virtual NIC" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="320" y="300" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="5NbOVXX6M8sHhtHBRRVc-16" value="3000:3000" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">

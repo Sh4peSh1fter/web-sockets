@@ -21,6 +21,8 @@ EXPOSE $PORT
 # # Health check
 # HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 #   CMD curl -f http://localhost:{PORT}/health || exit 1
+#
+# HEALTHCHECK CMD curl --fail http://localhost:{PORT} || exit 1
 
 # Run the application
 CMD ["python", "main.py"]
