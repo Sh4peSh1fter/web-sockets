@@ -71,10 +71,21 @@ Vagrant.configure(CONF_VERSION) do |config|
 
     # copy apps folder
     config.vm.provision "file", source: "apps", destination: "/home/vagrant/apps"
+    config.vm.provision "file", source: "infra", destination: "/home/vagrant/infra"
 
-    ## initial provision
-    ws.vm.provision "initial-provision", type: "shell" do |shell|
-      shell.path = "provision/initial-provision-centos.sh"
+    ## initial provision of the VM
+    ws.vm.provision "initial-setup", type: "shell" do |shell|
+      shell.path = "provision/initial-setup-centos.sh"
+    end
+
+    ## provision infra - jenkins and docker registry
+    ws.vm.provision "provision-infra", type: "shell" do |shell|
+      shell.path = "provision/setup-jenkins.sh"
+    end
+
+    ## deploy webapps
+    ws.vm.provision "deploy-apps", type: "shell" do |shell|
+      shell.path = "provision/deploy-webapps.sh"
     end
 
     # ## deploy webapps

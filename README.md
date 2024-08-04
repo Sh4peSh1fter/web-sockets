@@ -135,6 +135,15 @@ vagrant destroy
 
 ## usful commands
 
+- you can run specific provision steps:
+
+```bash
+vagrant up --provision-with <name-of-step>
+
+# for example: "vagrant up --provision-with deploy-apps"
+# will only run the provisioning step names "deploy-apps"
+```
+
 - to see the status of all the Vagrant VMs:
 
 ```bash

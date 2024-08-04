@@ -1,0 +1,23 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./jenkins.yaml:/var/jenkins_home/jenkins.yaml
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - JENKINS_OPTS="--httpPort=8080 --httpListenAddress=0.0.0.0"
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+
+  registry:
+    image: registry:2
+    ports:
+      - 5000:5000
+    volumes:
+      - ./registry-data:/var/lib/registry

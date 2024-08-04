@@ -1,0 +1,29 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin"
+  numExecutors: 2
+  scmCheckoutRetryCount: 2
+  mode: NORMAL
+
+jobs:
+  - script: >
+      pipelineJob('webapp-pipeline') {
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/Sh4peSh1fter/web-sockets.git')
+                }
+                branch('*/master')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+      }
+
+plugins:
+  - docker-workflow
+  - git
+  - workflow-aggregator
+  - configuration-as-code
