@@ -1,6 +1,7 @@
 services:
   http-web-app:
     build: 
+      # image: websockets/http-web-app:latest
       context: ./http-web-app
       args:
         - PORT=3000
@@ -8,11 +9,22 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+        interval: 5s
+        retries: 5
+        start_period: 15s
+        timeout: 5s
 
   https-web-app:
-    build: ./https-web-app
+    build:
+      context: ./https-web-app
+      args:
+          - PORT=3001
     ports:
       - "3001:3001"
+    environment:
+      - PORT=3001
     volumes:
       - ./certs:/etc/ssl/certs
 

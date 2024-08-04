@@ -3,7 +3,7 @@ import websockets
 
 async def handler(websocket, path):
     data = await websocket.recv()
-    reply = f"Data recieved as:  {data}!"
+    reply = f"Data recieved as:  {data}"
     await websocket.send(reply)
 
 start_server = websockets.serve(handler, '0.0.0.0')
